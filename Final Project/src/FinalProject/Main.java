@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaapplication1;
-#this is new
+package FinalProject;
+
 import java.util.*;
 
 /**
@@ -13,6 +13,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+
         System.out.println("""
                            Hi and welcome to the Java ElectroShop!
                            """);
@@ -24,6 +25,9 @@ public class Main {
         System.out.print("Enter your address: ");
         String address = myInput.nextLine();
         System.out.println("");
+
+        Customer c = new Customer(name, address);
+
         char answer;
         try {
             do {
@@ -34,7 +38,7 @@ public class Main {
 
                 switch (option) {
                     case 1 -> {
-                        System.out.println("You can now begin to shop items by category.");
+
                         categoriesOfItems();
                         String category = myInput.next();
                         Electronics item = new Electronics();
@@ -56,35 +60,9 @@ public class Main {
                         while (!quit) {
                             budget();
                             int optionBudget = myInput.nextInt();
-
-                            // switch case depending on user choice
-                            switch (optionBudget) {
-                                case 1 -> {
-                                    System.out.print("Enter the amount to add: $");
-                                    double addMoney = myInput.nextDouble();
-                                    budget.add(addMoney);
-                                    System.out.print("Money added successfully. Here is your new balance: ");
-                                    budget.displayBalance();
-                                }
-
-                                case 2 -> {
-                                    System.out.print("Enter the amount to remove: $");
-                                    double removeMoney = myInput.nextDouble();
-                                    budget.remove(removeMoney);
-                                    System.out.println("Money removed successfully.");
-                                    budget.displayBalance();
-                                }
-
-                                case 3 ->
-                                    budget.displayBalance();
-
-                                case 4 ->
-                                    quit = true;
-
-                                default ->
-                                    System.out.println("Invalid choice.");
-                            }
+                            budget(budget, optionBudget, myInput, quit);
                         }
+                        c.setBudget(budget);
                         myInput.close();
                     }
                     case 3 -> {
@@ -102,7 +80,6 @@ public class Main {
                 answer = Character.toLowerCase(answer);
             } while (answer == 'y');
 
-            System.out.println("Goodbye!");
         } catch (IllegalArgumentException ex) {
             System.out.println(ex);
         }
@@ -122,8 +99,8 @@ public class Main {
                 String category = myInput.next();
             }
             case 2 -> {
-                System.out.println("You can now begin to checkout.");
-                System.out.println("The total is of ");
+                System.out.println("You are now in checkout");
+                System.out.println("The total is of: ");
                 System.out.print("Delivery (d) or pick up (p)? ");
                 String delivOrPick = myInput.next();
                 delivery(delivOrPick);
@@ -136,26 +113,6 @@ public class Main {
         System.out.println();
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // methods
     public static void mainMenu() {
         System.out.println("""
@@ -176,6 +133,35 @@ public class Main {
         What would you like to do? """);
     }
 
+    public static void budget(Budget budget, int optionBudget, Scanner myInput, boolean quit) {
+        switch (optionBudget) {
+            case 1 -> {
+                System.out.print("Enter the amount to add: $");
+                double addMoney = myInput.nextDouble();
+                budget.add(addMoney);
+                System.out.print("Money added successfully. Here is your new balance: ");
+                budget.displayBalance();
+            }
+
+            case 2 -> {
+                System.out.print("Enter the amount to remove: $");
+                double removeMoney = myInput.nextDouble();
+                budget.remove(removeMoney);
+                System.out.println("Money removed successfully.");
+                budget.displayBalance();
+            }
+
+            case 3 ->
+                budget.displayBalance();
+
+            case 4 ->
+                quit = true;
+
+            default ->
+                System.out.println("Invalid choice.");
+        }
+    }
+
     public static void logOut() {
         System.out.printf("%20s %20s", "Successfully logged out.", "Thank you for shopping with the Java ElectroShop!");
     }
@@ -193,6 +179,7 @@ public class Main {
     public static void cart() {
         System.out.println("");
         System.out.println("Here is your cart:");
+
         //printing items chosen
         System.out.println("");
         System.out.println("Would you like to proceed with the transaction?");
