@@ -6,27 +6,21 @@ package FinalProject;
 
 /**
  *
- * @author 2279307
+ * @author A
  */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 
-/* PasswordDemo.java requires no other files. */
 public class Password extends JPanel implements ActionListener {
-
-    private static String OK = "ok";
-    private static String HELP = "help";
-
-    private JFrame controllingFrame; //needed for dialogs
+    private static final String OK = "ok";
+    private static final String HELP = "help";
+    private JFrame controllingFrame;
     private JPasswordField passwordField;
 
     public Password(JFrame f) {
-        //Use the default FlowLayout.
         controllingFrame = f;
-
-        //Create everything.
         passwordField = new JPasswordField(10);
         passwordField.setActionCommand(OK);
         passwordField.addActionListener(this);
@@ -36,7 +30,6 @@ public class Password extends JPanel implements ActionListener {
 
         JComponent buttonPane = createButtonPanel();
 
-        //Lay out everything.
         JPanel textPane = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         textPane.add(label);
         textPane.add(passwordField);
@@ -65,73 +58,38 @@ public class Password extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
 
-        if (OK.equals(cmd)) { //Process the password.
+        if (OK.equals(cmd)) {
             char[] input = passwordField.getPassword();
             if (isPasswordCorrect(input)) {
-                JOptionPane.showMessageDialog(controllingFrame,
-                        "Success! You typed the right password 😊 ");
+                JOptionPane.showMessageDialog(controllingFrame, "Success! You typed the right password 😊 ");
             } else {
-                JOptionPane.showMessageDialog(controllingFrame,
-                        "Invalid password. Try again.",
-                        "Error Message",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(controllingFrame, "Invalid password. Try again.", "Error Message", JOptionPane.ERROR_MESSAGE);
             }
-
-            //Zero out the possible password, for security. 
             Arrays.fill(input, '0');
-
             passwordField.selectAll();
             resetFocus();
-        } else { //The user has asked for help.
-            JOptionPane.showMessageDialog(controllingFrame, """
-                                                            You can get the password by looking at the'
-                                                            source code for the string "correctPassword".
-                                                            Or ask the developpers for the correct 
-                                                            password.""");
-        }
-    }
-
-    /**
-     * Checks the passed-in array against the correct password. After this
-     * method returns, you should invoke eraseArray on the passed-in array.
-     */
-    private static boolean isPasswordCorrect(char[] input) {
-        boolean isCorrect = true;
-        char[] correctPassword = {'p', 'a', 'n', 'd', 'a'};
-
-        if (input.length != correctPassword.length) {
-            isCorrect = false;
         } else {
-            isCorrect = Arrays.equals(input, correctPassword);
+            JOptionPane.showMessageDialog(controllingFrame, "You can get the password by looking at the source code for the string 'correctPassword'. Or ask the developers for the correct password.");
         }
-
-        //Zero out the password.
-        Arrays.fill(correctPassword, '0');
-
-        return isCorrect;
     }
 
-    //Must be called from the event dispatch thread.
+    private static boolean isPasswordCorrect(char[] input) {
+        char[] correctPassword = {'p', 'a', 'n', 'd', 'a'};
+        return Arrays.equals(input, correctPassword);
+    }
+
     protected void resetFocus() {
         passwordField.requestFocusInWindow();
     }
 
-    /**
-     * Create the GUI and show it. For thread safety, this method should be
-     * invoked from the event dispatch thread.
-     */
     private static void createAndShowGUI() {
-        //Create and set up the window.
         JFrame frame = new JFrame("Electro Shop Portal Password");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Create and set up the content pane.
         final Password newContentPane = new Password(frame);
-        newContentPane.setOpaque(true); //content panes must be opaque
+        newContentPane.setOpaque(true);
         frame.setContentPane(newContentPane);
 
-        //Make sure the focus goes to the right component
-        //whenever the frame is initially given the focus.
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
@@ -139,16 +97,12 @@ public class Password extends JPanel implements ActionListener {
             }
         });
 
-        //Display the window.
         frame.pack();
         frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
         SwingUtilities.invokeLater(() -> {
-            //Turn off metal's use of bold fonts
             UIManager.put("swing.boldMetal", Boolean.FALSE);
             createAndShowGUI();
         });
