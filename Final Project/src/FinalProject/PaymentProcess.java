@@ -11,6 +11,9 @@ import java.util.*;
  * @author A
  */
 
+/* the psvm is to be removed as this is a simple class
+ * which will be later implemented in the main 
+ */
 public class PaymentProcess {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
