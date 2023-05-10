@@ -82,6 +82,11 @@ public class Main {
 
         } catch (IllegalArgumentException ex) {
             System.out.println(ex);
+        } catch (Exception e) {
+            System.out.println("An error occurred. Please try again.");
+            e.printStackTrace();
+        } finally {
+            myInput.close();
         }
 
         //Cart and checkout
