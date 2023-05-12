@@ -16,6 +16,8 @@ import java.util.*;
  */
 public class PaymentProcess {
     public static void main(String[] args) {
+        System.out.println("Ntela was here");
+    }
 //        Scanner scan = new Scanner(System.in);
 
 //        // initialize budget object with $1000
