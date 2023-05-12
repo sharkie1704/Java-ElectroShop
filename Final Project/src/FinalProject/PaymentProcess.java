@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package electroshop1;
+package FinalProject;
 
 import java.util.*;
 
@@ -15,6 +15,7 @@ import java.util.*;
  * which will be later implemented in the main 
  */
 public class PaymentProcess {
+
     public static void main(String[] args) {
         System.out.println("Ntela was here");
     }
@@ -25,7 +26,6 @@ public class PaymentProcess {
 //
 //        System.out.print("Enter the item price: $");
 //        double price = scan.nextDouble();
-
 //        if (price <= budgetObject.getBalance()) {
 //            System.out.println("You are exceeding your budget amount.");
 //            System.out.print("Confirm transaction? (Y/N): ");

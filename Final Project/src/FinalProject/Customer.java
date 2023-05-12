@@ -16,11 +16,12 @@ public class Customer {
     Budget budget;
 
     /*
-    **Constructor
+    ** Constructor
      */
     public Customer(String name, String address) {
         this.name = name;
         this.address = address;
+        this.orderId = generateRandomId();
     }
 
     public Customer(String name, String address, int orderId) {
@@ -29,8 +30,8 @@ public class Customer {
         this.orderId = orderId;
     }
 
-    public int generateRandomId() {
-        int n = (int) (Math.random() * 10000 + 25);
+    private int generateRandomId() {
+        int n = (int) (Math.random() * 100000 + 2560);
         return orderId = n;
     }
 
@@ -62,7 +63,7 @@ public class Customer {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public int setOrderId() {
+        return generateRandomId();
     }
 }
