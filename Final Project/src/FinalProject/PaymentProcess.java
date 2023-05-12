@@ -18,31 +18,31 @@ public class PaymentProcess {
     public static void main(String[] args) {
         System.out.println("Ntela was here");
     }
-//        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-//        // initialize budget object with $1000
-//        Budget budgetObject = new Budget(1000);
-//
-//        System.out.print("Enter the item price: $");
-//        double price = scan.nextDouble();
+        // initialize budget object with $1000
+        Budget budgetObject = new Budget(1000);
 
-//        if (price <= budgetObject.getBalance()) {
-//            System.out.println("You are exceeding your budget amount.");
-//            System.out.print("Confirm transaction? (Y/N): ");
-//            String confirm = scan.next();
-//
-//            if (confirm.equalsIgnoreCase("Y")) {
-//                budgetObject.remove(price);
-//                System.out.println("Transaction complete.");
-//                System.out.print("Current balance: ");
-//                budgetObject.displayBalance();
-//            } else {
-//                System.out.println("Transaction cancelled.");
-//            }
-//        } else {
-//            System.out.println("You do not have enough money to buy this item.");
-//        }
-//
-//        scan.close();
-//    }
+        System.out.print("Enter the item price: $");
+        double price = scan.nextDouble();
+
+        if (price <= budgetObject.getBalance()) {
+            System.out.println("You are exceeding your budget amount.");
+            System.out.print("Confirm transaction? (Y/N): ");
+            String confirm = scan.next();
+
+            if (confirm.equalsIgnoreCase("Y")) {
+                budgetObject.remove(price);
+                System.out.println("Transaction complete.");
+                System.out.print("Current balance: ");
+                budgetObject.displayBalance();
+            } else {
+                System.out.println("Transaction cancelled.");
+            }
+        } else {
+            System.out.println("You do not have enough money to buy this item.");
+        }
+
+        scan.close();
+    }
 }
