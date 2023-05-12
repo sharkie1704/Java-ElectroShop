@@ -15,9 +15,6 @@ import java.util.*;
  * which will be later implemented in the main 
  */
 public class PaymentProcess {
-    public static void main(String[] args) {
-        System.out.println("Ntela was here");
-    }
         Scanner scan = new Scanner(System.in);
 
         // initialize budget object with $1000
@@ -27,7 +24,7 @@ public class PaymentProcess {
         double price = scan.nextDouble();
 
         if (price <= budgetObject.getBalance()) {
-            System.out.println("You are exceeding your budget amount.");
+            System.out.println("You are exceeding your budget.");
             System.out.print("Confirm transaction? (Y/N): ");
             String confirm = scan.next();
 
