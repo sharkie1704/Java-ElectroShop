@@ -1,4 +1,3 @@
-# Ishrak
 Java ElectroShop
 
 A Java console-based application that simulates an online shop for electronics. The user is asked to enter their name and address, and then can choose from a main menu of options:
