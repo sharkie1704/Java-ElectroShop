@@ -12,22 +12,24 @@ public class Budget {
 
     private double balance;
 
-    // initialize balance w/ constructor
+    /*
+    Constructor
+    */
     public Budget(double balance) {
         this.balance = balance;
     }
 
-    // add money mtd
+    // add money
     public void add(double amount) {
         balance += amount;
     }
 
-    // remove money mtd
+    // remove money
     public void remove(double amount) {
         balance -= amount;
     }
 
-    // display balance mtd
+    // display balance
     public void displayBalance() {
         System.out.println("Current balance: $" + String.format("%.2f", balance));
     }

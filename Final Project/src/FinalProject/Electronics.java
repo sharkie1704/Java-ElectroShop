@@ -15,40 +15,50 @@ abstract public class Electronics {
     double price;
     String name;
     int id;
-    int dateOfRelease;
+    int yearOfRelease;
 
-    public ArrayList<Electronics> filtering(ArrayList data,String s) {
+    public ArrayList<Electronics> filtering(ArrayList data, String s) {
         Electronics thing = null;
-        ArrayList<Electronics> New = null;
+        ArrayList<Electronics> arr = null;
         String class_name;
 
-        for(int i =0; i<data.size();i++){
-            switch(s){
-                case "a"->{
-                    if (data.get(i) instanceof Phones){
-                        New.add((Electronics) data.get(i));
+        for (int i = 0; i < data.size(); i++) {
+            switch (s) {
+                case "a" -> {
+                    if (data.get(i) instanceof Phones) {
+                        arr.add((Electronics) data.get(i));
                     }
                 }
-                case "b"->{
-                    if (data.get(i) instanceof Laptops){
-                        New.add((Electronics) data.get(i));
+                case "b" -> {
+                    if (data.get(i) instanceof Laptops) {
+                        arr.add((Electronics) data.get(i));
                     }
                 }
-                case "c"->{
-                    if (data.get(i) instanceof TV){
-                        New.add((Electronics) data.get(i));
+                case "c" -> {
+                    if (data.get(i) instanceof TV) {
+                        arr.add((Electronics) data.get(i));
                     }
                 }
-                case "d"->{
-                    if (data.get(i) instanceof Headphones){
-                        New.add((Electronics) data.get(i));
+                case "d" -> {
+                    if (data.get(i) instanceof Headphones) {
+                        arr.add((Electronics) data.get(i));
                     }
                 }
             }
         }
-        return New;
+        return arr;
     }
-    
+
+    public Electronics() {
+    }
+
+    public Electronics(double price, String name, int id, int yearOfRelease) {
+        this.price = price;
+        this.name = name;
+        this.id = id;
+        this.yearOfRelease = yearOfRelease;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -73,106 +83,92 @@ abstract public class Electronics {
         this.id = id;
     }
 
-    public int getDateOfRelease() {
-        return dateOfRelease;
+    public int getYearOfRelease() {
+        return yearOfRelease;
     }
 
-    public void setDateOfRelease(int dateOfRelease) {
-        this.dateOfRelease = dateOfRelease;
-    }
-    
-    }
-    
-    class Phones extends Electronics {
-
-        public Phones(double p, String n, int i,int d) {
-            price = p;
-            name = n;
-            id = i;
-            dateOfRelease = d;
-        }
-        
-        @Override
-        public String toString() {
-            return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
-                    "Product & id", name, "-", id,
-                    "Date", dateOfRelease, "Price", price, '$');
-        }
+    public void setYearOfRelease(int yearOfRelease) {
+        this.yearOfRelease = yearOfRelease;
     }
 
-    class Laptops extends Electronics {
+}
 
-        public Laptops(double p, String n, int i,int d) {
-            price = p;
-            name = n;
-            id = i;
-            dateOfRelease = d;
-        }
-        
+class Phones extends Electronics {
 
-        @Override
-        public String toString() {
-            return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
-                    "Product & id", name, "-", id,
-                    "Date", dateOfRelease, "Price", price, '$');
-        }
+    public Phones() {
     }
 
-    class TV extends Electronics {
-
-        public TV(double p, String n, int i,int d) {
-            price = p;
-            name = n;
-            id = i;
-            dateOfRelease = d;
-        }
-        
-
-        @Override
-        public String toString() {
-            return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
-                    "Product & id", name, "-", id,
-                    "Date", dateOfRelease, "Price", price, '$');
-        }
+    public Phones(double price, String name, int id, int yearOfRelease) {
+        this.price = price;
+        this.name = name;
+        this.id = id;
+        this.yearOfRelease = yearOfRelease;
     }
 
-    class Headphones extends Electronics {
+    @Override
+    public String toString() {
+        return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
+                "Product & id", name, "-", id,
+                "Date", yearOfRelease, "Price", price, '$');
+    }
+}
 
-        public Headphones(double p, String n, int i,int d) {
-            price = p;
-            name = n;
-            id = i;
-            dateOfRelease = d;
-        }
-        
+class Laptops extends Electronics {
 
-        @Override
-        public String toString() {
-            return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
-                    "Product & id", name, "-", id,
-                    "Date", dateOfRelease, "Price", price, '$');
-        }
+    public Laptops() {
     }
 
-    class Customer {
-
-        String Addresse;
-        String Name;
-        ArrayList<Electronics> Cart;
-
-        public Customer(String Addresse, String Name) {
-            this.Addresse = Addresse;
-            this.Name = Name;
-        }
-
-        public static Electronics AddCart(ArrayList<Electronics> thing, int numb) {
-            for (int i = 0; i < thing.size(); i++) {
-                if (thing.get(i).getId() == numb) {
-                    return thing.get(i);
-                }
-            }
-            return null;
-        }
+    public Laptops(double price, String name, int id, int yearOfRelease) {
+        this.price = price;
+        this.name = name;
+        this.id = id;
+        this.yearOfRelease = yearOfRelease;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
+                "Product & id", name, "-", id,
+                "Date", yearOfRelease, "Price", price, '$');
+    }
+}
 
+class TV extends Electronics {
+
+    public TV() {
+    }
+
+    public TV(double price, String name, int id, int yearOfRelease) {
+        this.price = price;
+        this.name = name;
+        this.id = id;
+        this.yearOfRelease = yearOfRelease;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
+                "Product & id", name, "-", id,
+                "Date", yearOfRelease, "Price", price, '$');
+    }
+}
+
+class Headphones extends Electronics {
+
+    public Headphones() {
+    }
+
+    public Headphones(double price, String name, int id, int yearOfRelease) {
+        this.price = price;
+        this.name = name;
+        this.id = id;
+        this.yearOfRelease = yearOfRelease;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%12s: %-4s%-2s%d%n%12s: %d%n%12s: %f%c",
+                "Product & id", name, "-", id,
+                "Date", yearOfRelease, "Price", price, '$');
+    }
+}

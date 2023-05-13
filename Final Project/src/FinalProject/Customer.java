@@ -4,6 +4,8 @@
  */
 package FinalProject;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 2279307
@@ -14,6 +16,7 @@ public class Customer {
     String address;
     int orderId;
     Budget budget;
+    ArrayList<Electronics> cart;
 
     /*
     ** Constructor
@@ -31,16 +34,17 @@ public class Customer {
     }
 
     private int generateRandomId() {
-        int n = (int) (Math.random() * 100000 + 2560);
-        return orderId = n;
+        return orderId = (int) (Math.random() * 100000 + 2560);
     }
-
-    public Budget getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Budget budget) {
-        this.budget = budget;
+    
+    //what are we gonna use this for? 
+    public static Electronics addToCart(ArrayList<Electronics> item, int num) {
+        for (int i = 0; i < item.size(); i++) {
+            if (item.get(i).getId() == num) {
+                return item.get(i);
+            }
+        }
+        return null;
     }
 
     public String getName() {
@@ -65,5 +69,21 @@ public class Customer {
 
     public int setOrderId() {
         return generateRandomId();
+    }
+
+    public Budget getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Budget budget) {
+        this.budget = budget;
+    }
+
+    public ArrayList<Electronics> getCart() {
+        return cart;
+    }
+
+    public void setCart(ArrayList<Electronics> cart) {
+        this.cart = cart;
     }
 }

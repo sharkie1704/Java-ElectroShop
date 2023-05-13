@@ -76,8 +76,8 @@ public class Main {
                         case 1 -> {
                             categoriesOfItems();
                             String category = myInput.next();
-                            Electronics item = new Electronics();
-                            item.filtering(category);
+                            //Electronics item = new Electronics() {};
+                            //item.filtering(category);
                         }
                         case 2 -> {                            
                             System.out.print("Enter your budget: $");
@@ -148,8 +148,9 @@ public class Main {
             System.out.println();
         }
     }
-    // methods
+    
 
+    // methods
     public static void mainMenu() {
         System.out.println("""
                 1. Shop items by category
