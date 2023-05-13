@@ -33,4 +33,12 @@ public class Budget {
     public void displayBalance() {
         System.out.println("Current balance: $" + String.format("%.2f", balance));
     }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 }

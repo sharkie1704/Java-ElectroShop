@@ -67,11 +67,8 @@ public class IOReader {
                                         break;
                                 }
                             }
-
                         }
-
                     }
-
                 }
             }
 
@@ -99,5 +96,14 @@ public class IOReader {
         }
 
         return dataArray;
+    }
+
+    public static void addToCartIO(double price, double balance, ArrayList<String> cart) {
+        if (price <= balance) {
+            balance -= price;
+            cart.add(String.format("%.2f", price));
+        } else {
+            System.out.println("You don't have enough money to purchase this item.");
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class MainClass {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, EmptyCartException {
 
         Scanner myInput = new Scanner(System.in);
 
@@ -39,7 +39,7 @@ public class MainClass {
                     myInput.close();
                     passwordIsValid = true;
                     if (passwordIsValid == true) {
-                        System.out.println("Welcome, Admin. What would you like to do today?");
+                        System.out.println("Welcome, Admin. What would you like to do today?\n");
                         //call the Admin class--> add or remove items, edit attributes of items, or log out
                         Admin adminMenu = new Admin();
                         adminMenu.displayOptions();
@@ -80,8 +80,8 @@ public class MainClass {
 
                     switch (option) {
                         case 1 -> {
-                            categoriesOfItems();
-                            String category = myInput.next();
+//                            categoriesOfItems();
+//                            String category = myInput.next();
 
                             //read IO file
                             ArrayList<Electronics> electronicsList = new ArrayList();
@@ -91,80 +91,46 @@ public class MainClass {
                             String[][] data;
                             data = readDataFromFile("C:\\Users\\2279307\\Desktop\\Note.txt");
 
-                            switch (category) {
-                                case "a" -> {
-                                    System.out.println("Here are the TVs in stock:");
-
-                                    for (String[] d : data) {
-                                        for (int j = 1; j < d.length; j++) {
-                                            // Print each element of the array
-                                            System.out.print(d[j] + " ");
-                                        }
-                                        // Move to a new line after each row is printed
-                                        System.out.println();
-                                    }
+//                            switch (category) {
+//                                case "a" -> {
+                            System.out.println("\nHere are the articles in stock:");
+                            for (String[] d : data) {
+                                System.out.print("Price: $");
+                                for (int j = 1; j < d.length; j++) {
+                                    // Print each element of the array
+                                    System.out.print(d[j] + " ");
                                 }
-                                case "b" -> {
-                                    System.out.println("Here are the phones in stock:");
-                                }
-                                case "c" -> {
-                                    System.out.println("Here are the laptops in stock:");
-                                }
-                                case "d" -> {
-                                    System.out.println("Here are the headphones in stock:");
-                                }
+                                // Move to a new line after each row is printed
+                                System.out.println();
                             }
+                            shopping(c, myInput);
                         }
-
                         case 2 -> {
                             System.out.print("Enter your budget: $");
 
                             Budget budget = new Budget(myInput.nextInt());
+                            c.setBudget(budget);
+                            budgetMenu(myInput);
+//                            boolean quit = false;
+//
+//                            // display menu until user chooses to quit/go back
+//                            while (!quit) {
+//                                if (!budgetMenu(myInput)) {  // If budget() returns false, break out of the loop
+//                                    break;
+//                                }
+                            int optionBudget = myInput.nextInt();
+                            modifyBudget(c, budget, optionBudget, myInput);
 
-                            boolean quit = false;
-
-                            // display menu until user chooses to quit/go back
-                            while (!quit) {
-                                if (!budgetMenu(myInput)) {  // If budget() returns false, break out of the loop
-                                    break;
-                                }
-                                int optionBudget = myInput.nextInt();
-                                modifyBudget(budget, optionBudget, myInput, quit);
-                            }
                             c.setBudget(budget);
                             myInput.close();
                         }
                         case 3 -> {
-                            System.out.println("You can now begin to check your cart.");
-                            cart();
-
-//            System.out.println(
-//                    """
-//                           1. Go back to shopping
-//                           2. Continue
-//                           3. Log out""");
-//            int checkout = myInput.nextInt();
-//            switch (checkout) {
-//                case 1 -> {
-//                    System.out.println("You can now begin to shop items by category.");
-//                    categoriesOfItems();
-//                    String category = myInput.next();
-//                }
-//                case 2 -> {
-//                    System.out.println("You are now in checkout.");
-//                    System.out.println("The total is of: ");
-//                    System.out.print("Delivery (d) or pick up (p)? ");
-//                    String delivOrPick = myInput.next();
-//                    delivery(delivOrPick, c);
-//                }
-//                case 3 ->
-//                    logOut();
-//                default ->
-//                    System.out.println("Invalid option. Please try again.");
-//            }
-//            System.out.println();
+                            removeFromCart(c, myInput);
                         }
                         case 4 -> {
+                            cart(c, myInput);
+                        }
+                        case 5 -> {
                             logOut();
                             shouldContinue = false;
                             break;
@@ -191,19 +157,20 @@ public class MainClass {
             }
         }
     }
-
     // methods
-    
+
     /*
     The main menu that is displayed at the beginning
      */
     public static void mainMenu() {
-        System.out.println("""
-                1. Shop items by category
+        System.out.printf("\n%s\n", "********************************");
+        System.out.print("""
+                1. Shop items
                 2. Set up a budget
-                3. Go to cart
-                4. Log out""");
-        System.out.println();
+                3. Remove items from cart
+                4. Go to cart
+                5. Log out""");
+        System.out.printf("\n%s\n", "********************************");
     }
 
     /*
@@ -218,6 +185,126 @@ public class MainClass {
                 d. Headphones""");
         System.out.println();
         System.out.print("Choose a category of items: ");
+    }
+
+    /*
+    The shopping menu; to add items to cart with a budget
+     */
+    public static void shopping(double budgetAmount, Customer c, Scanner myInput) throws IOException, EmptyCartException {
+        String fileName = "C:\\Users\\2279307\\Desktop\\Note.txt";
+        ArrayList<Electronics> electronicsList = new ArrayList();
+        IOReader.readElectronicsFile(fileName, electronicsList);
+        ArrayList<String> cartItems = new ArrayList();
+        double balance = 0.00;
+
+        boolean keepShopping = true;
+
+        while (keepShopping) {
+            System.out.printf("\n%s\n", "************************************");
+            System.out.println("\nSelect an item to add to your cart:");
+            System.out.println("0. Exit shopping");
+            for (int i = 0; i < electronicsList.size(); i++) {
+                System.out.println("\n" + (i + 1) + ". " + electronicsList.get(i) + " ");
+            }
+
+            int choice = myInput.nextInt();
+
+            if (choice == 0) {
+                keepShopping = false;
+            } else if (choice > 0 && choice <= electronicsList.size()) {
+                Electronics item = electronicsList.get(choice - 1);
+                cartItems.add(item.getName());
+                balance += item.getPrice();
+                System.out.println("\n" + item.getName() + " added to your cart.");
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        System.out.println("\nYou have selected the following items:");
+        for (String item : cartItems) {
+            System.out.println("- " + item);
+        }
+        System.out.println("\nTotal balance: $" + balance + "\n\n");
+        if (budgetAmount <= balance) {
+            System.out.println("You have respected your budget. Congratulations!");
+        } else {
+            System.out.println("You have exceeded your budget. Do you wish to proceed? (y/n)");
+            char proceed = (char) myInput.nextByte();
+            if (proceed == 'y') {
+                c.setCart(electronicsList);
+            } else {
+                removeFromCart(c, myInput);
+            }
+        }
+    }
+
+    /*
+    Shopping menu but without a budget
+     */
+    public static void shopping(Customer c, Scanner myInput) throws IOException {
+        String fileName = "C:\\Users\\2279307\\Desktop\\Note.txt";
+        ArrayList<Electronics> electronicsList = new ArrayList();
+        IOReader.readElectronicsFile(fileName, electronicsList);
+        ArrayList<String> cartItems = new ArrayList();
+        double balance = 0.00;
+
+        boolean keepShopping = true;
+
+        while (keepShopping) {
+            System.out.printf("\n%s\n", "************************************");
+            System.out.println("Select an item to add to your cart:");
+            System.out.println("0. Exit shopping");
+            for (int i = 0; i < electronicsList.size(); i++) {
+                System.out.println("\n" + (i + 1) + ". " + electronicsList.get(i) + " ");
+            }
+
+            int choice = myInput.nextInt();
+
+            if (choice == 0) {
+                keepShopping = false;
+            } else if (choice > 0 && choice <= electronicsList.size()) {
+                Electronics item = electronicsList.get(choice - 1);
+                cartItems.add(item.getName());
+                balance += item.getPrice();
+                System.out.println("\n" + item.getName() + " added to your cart.");
+            } else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        System.out.println("\nYou have selected the following items:");
+        for (String item : cartItems) {
+            System.out.println("- " + item);
+        }
+        System.out.println("\nTotal balance: $" + balance + "\n");
+        c.setCart(electronicsList);
+        c.setBalance(balance);
+    }
+
+    /*
+    To remove items from cart
+     */
+    public static void removeFromCart(Customer c, Scanner myInput) throws EmptyCartException {
+        ArrayList<Electronics> cart = c.getCart();
+        if (cart.isEmpty()) {
+            throw new EmptyCartException("Your cart is empty!");
+        }
+        System.out.printf("\n%s\n", "************************************");
+        System.out.println("\nSelect an item to remove from your cart:");
+        for (int i = 0; i < cart.size(); i++) {
+            System.out.println((i + 1) + ". " + cart.get(i).getName());
+        }
+
+        int choice = myInput.nextInt();
+
+        if (choice > 0 && choice <= cart.size()) {
+            Electronics item = cart.get(choice - 1);
+            cart.remove(item);
+            System.out.println("\n" + item.getName() + " removed from your cart.");
+        } else {
+            System.out.println("Invalid choice. Please try again.");
+        }
     }
 
     /*
@@ -239,48 +326,82 @@ public class MainClass {
     /*
     To modify the budget 
      */
-    public static void modifyBudget(Budget budget, int optionBudget, Scanner myInput, boolean quit) {
+    public static void modifyBudget(Customer c, Budget budget, int optionBudget, Scanner myInput) throws IOException, EmptyCartException {
         System.out.println();
-        switch (optionBudget) {
-            case 1 -> {
-                System.out.print("Enter the amount to add: $");
-                double addMoney = myInput.nextDouble();
-                budget.add(addMoney);
-                System.out.print("Money added successfully. ");
-                budget.displayBalance();
-            }
+        try {
+            switch (optionBudget) {
+                case 1 -> {
+                    System.out.print("Enter the amount to add: $");
+                    double addMoney = myInput.nextDouble();
+                    budget.add(addMoney);
+                    System.out.print("Money added successfully. ");
+                    budget.displayBalance();
+                }
 
-            case 2 -> {
-                System.out.print("Enter the amount to remove: $");
-                double removeMoney = myInput.nextDouble();
-                budget.remove(removeMoney);
-                System.out.println("Money removed successfully. ");
-                budget.displayBalance();
-            }
+                case 2 -> {
+                    System.out.print("Enter the amount to remove: $");
+                    double removeMoney = myInput.nextDouble();
+                    budget.remove(removeMoney);
+                    System.out.println("Money removed successfully. ");
+                    budget.displayBalance();
+                }
 
-            case 3 -> {
-                budget.displayBalance();
-            }
+                case 3 -> {
+                    budget.displayBalance();
+                }
 
-            case 4 -> {
-                quit = true;
-            }
+                case 4 -> {
+                    shopping(budget.getBalance(), c, myInput);
+                }
 
-            default ->
-                System.out.println("Invalid choice.");
+                default -> {
+                    System.out.println("Invalid choice.");
+                    break;
+                }
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
         }
     }
 
     /*
     The cart of the user that will be shown when they choose to checkout
      */
-    public static void cart() {
-        System.out.println();
-        System.out.println("Here is your cart:");
-        
-        //printing items chosen
-        System.out.println();
-        System.out.println("Would you like to proceed with the transaction?");
+    public static void cart(Customer c, Scanner myInput) {
+        if (c.getCart() == null) {
+            System.out.println("\nYou do not have any items in your cart. What would you like to do?\n");
+        } else {
+            System.out.printf("\n%22s\n", "Here is your cart:");
+            System.out.printf("%s\n", "****************************");
+            c.printCart();
+            System.out.printf("%s: $%.2f\n%s\n", "Total before taxes", c.getBalance(), "****************************");
+            System.out.println();
+            System.out.println("""
+            1. Go back to main menu
+            2. Continue
+            3. Log out""");
+            System.out.print("\nWhat would you like to do? ");
+            int checkout = myInput.nextInt();
+            if (checkout == 3) {
+                logOut();
+            } else if (checkout == 2) {
+                checkout(c, myInput);
+            } else {
+                System.out.println();
+            }
+        }
+    }
+
+    /*
+    The checkout menu
+     */
+    public static void checkout(Customer c, Scanner myInput) {
+        System.out.printf("%s\n", "****************************");
+        System.out.printf("%s: $%.2f\n", "Total after taxes", c.getBalanceWithTaxes());
+        System.out.print("Delivery (d) or pick up (p)? ");
+        String delivOrPick = myInput.next();
+        delivery(delivOrPick, c);
+        System.out.println("\nThank you for shopping at the Java ElectroShop!\n");
     }
 
     /*
@@ -290,16 +411,19 @@ public class MainClass {
         switch (delivOrPick) {
             case "d" -> {
                 System.out.println("\nYour item(s) will be delivered in 3-5 business days.");
+                System.out.println("Name and adress of client: " + c.getName() + "," + c.getAddress());
                 System.out.println("Order ID: " + c.getOrderId());
             }
             case "p" -> {
-                System.out.println("You can come pick up your item(s) at 4567 Hamel Street, H6R 3L2, Montreal, QC");
+                System.out.printf("%s\n", "******************************************");
+                System.out.println("\nYou can come pick up your item(s) at 4567 Hamel Street, H6R 3L2, Montreal, QC");
+                System.out.println("Name and adress of client: " + c.getName() + "," + c.getAddress());
                 System.out.println("Order ID: " + c.getOrderId());
+                System.out.printf("%s\n", "******************************************");
             }
             default ->
-                System.out.println("Invalid answer");
+                System.out.println("Invalid answer\n");
         }
-        System.out.println("\nThank you for shopping at the Java ElectroShop!");
     }
 
     /*

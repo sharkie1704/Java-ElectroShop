@@ -12,7 +12,7 @@ import java.util.*;
  */
 abstract public class Electronics {
 
-    double price;
+    double price = 0.00;
     String name;
     int id;
     int yearOfRelease;

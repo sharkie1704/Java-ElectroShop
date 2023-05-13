@@ -17,6 +17,8 @@ public class Customer {
     int orderId;
     Budget budget;
     ArrayList<Electronics> cart;
+    double balance;
+    double balanceWithTaxes;
 
     /*
     ** Constructor
@@ -36,15 +38,21 @@ public class Customer {
     private int generateRandomId() {
         return orderId = (int) (Math.random() * 100000 + 2560);
     }
-    
+
     //what are we gonna use this for? 
-    public static Electronics addToCart(ArrayList<Electronics> item, int num) {
+    public Electronics addToCart(ArrayList<Electronics> item, int num) {
         for (int i = 0; i < item.size(); i++) {
             if (item.get(i).getId() == num) {
                 return item.get(i);
             }
         }
         return null;
+    }
+
+    public void printCart() {
+        for (int i = 0; i < cart.size(); i++) {
+            System.out.println(cart.get(i) + " \n");
+        }
     }
 
     public String getName() {
@@ -85,5 +93,17 @@ public class Customer {
 
     public void setCart(ArrayList<Electronics> cart) {
         this.cart = cart;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+    
+    public double getBalanceWithTaxes() {
+        return balanceWithTaxes = balance * 1.15;
     }
 }
