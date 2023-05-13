@@ -1,2 +1,20 @@
-p|1200.99|Iphone 13|15463|2021|
-h|350.50|Sony|15613|2016|
+p|1549.99|Iphone 14 Pro Max 128GB|15463|2022|
+t|1498.00|Sony 65" BRAVIA XR X90K|48663|2022|
+l|750.00|Apple MacBook Pro 15.4|49846|2012|
+h|129.99|Skullcandy Hesh ANC Noise Canceling|41865|2020|
+p|1219.99|Samsung Galaxy Z Flip4 Phone|16546|2022|
+t|476.68|Vizio-50" Class V-Series|75798|2022|
+l|200.43|Razer Blade 15 Advanced|46849|2023|
+h|183.00|Logitech G435|16467|2022|
+p|569.97|Iphone 12|46844|2020|
+t|289.99|TCL 43" Class 4-Series|63584|2022|
+l|1249.00|MSI Katana GF66|25648|2021|
+h|475.32|Sony WH-1000XM4|48648|2020|
+p|1012.99|Google Pixel 7 Pro Smart Phone|54664|2022|
+t|2398.00|LG C2 65" 4k|86448|2022|
+l|514.99|HP Chromebook 14a|56496|2021|
+h|299.98|JBL LIve 650BTNC|64864|2019|
+p|969.99|Samsung Galaxy S22|56416|2022|
+t|885.00|Samsung AU8000 65" Crystal|56849|2021|
+l|1999.99|ASUS Zephyrus G14|58944|2021|
+h|248.95|Beats by Dre White Sutdio 3|45649|2017|
