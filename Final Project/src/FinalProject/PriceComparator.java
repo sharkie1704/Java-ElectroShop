@@ -10,16 +10,33 @@ import java.util.Comparator;
  *
  * @author 2279307
  */
-public class PriceComparator implements Comparator<Electronics> {
+//High to Low
+class ElectronicsHtLComparator implements Comparator<Electronics> {
 
     @Override
-    public int compare(Electronics e1, Electronics e2) {
-        if (e1.getPrice() < e2.getPrice()) {
-            return -1;
-        } else if (e1.getPrice() > e2.getPrice()) {
+    public int compare(Electronics o1, Electronics o2) {
+        if (o1.price == o2.price) {
+            return 0;
+        } else if (o1.price < o2.price) {
             return 1;
         } else {
-            return 0;
+            return -1;
         }
     }
 }
+
+//Low to High
+class ElectronicsLtHComparator implements Comparator<Electronics> {
+
+    @Override
+    public int compare(Electronics o1, Electronics o2) {
+        if (o1.price == o2.price) {
+            return 0;
+        } else if (o1.price > o2.price) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+}
+

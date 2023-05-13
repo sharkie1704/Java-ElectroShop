@@ -16,7 +16,7 @@ public class Customer {
     String address;
     int orderId;
     Budget budget;
-    ArrayList<Electronics> cart;
+    ArrayList<String> cart;
     double balance;
     double balanceWithTaxes;
 
@@ -51,7 +51,7 @@ public class Customer {
 
     public void printCart() {
         for (int i = 0; i < cart.size(); i++) {
-            System.out.println(cart.get(i) + " \n");
+            System.out.printf("- %14s\n", cart.get(i));
         }
     }
 
@@ -87,11 +87,11 @@ public class Customer {
         this.budget = budget;
     }
 
-    public ArrayList<Electronics> getCart() {
+    public ArrayList<String> getCart() {
         return cart;
     }
 
-    public void setCart(ArrayList<Electronics> cart) {
+    public void setCart(ArrayList<String> cart) {
         this.cart = cart;
     }
 
@@ -106,4 +106,5 @@ public class Customer {
     public double getBalanceWithTaxes() {
         return balanceWithTaxes = balance * 1.15;
     }
+
 }
