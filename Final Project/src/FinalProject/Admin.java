@@ -26,10 +26,20 @@ public class Admin {
         switch (choice) {
             case 1 -> {
                 // code to add an item to the shop
-                System.out.println("You have selected to add an item to the shop.");
+                // chose a category + link with IO file
             }
             case 2 -> {
+                // code to remove an item from the shop
+                // chose a category + link with IO file
+            }
+
+            case 3 -> {
                 // code to modify the attributes of an item
+                // modify either price, date, etc.
+            }
+            
+            case 4 -> {
+                // code to log out/ go to customer ???
                 System.out.println("You have selected to modify the attributes of an item.");
             }
             default -> System.out.println("Invalid choice. Please choose either option 1 or 2.");
