@@ -40,7 +40,9 @@ public class MainClass {
                     passwordIsValid = true;
                     if (passwordIsValid == true) {
                         System.out.println("Welcome, Admin. What would you like to do today?");
-                        //code for admin --> add or remove items, edit attributes of items, or log out
+                        //call the Admin class--> add or remove items, edit attributes of items, or log out
+                        Admin adminMenu = new Admin();
+                        adminMenu.displayOptions();
                     }
                 } else {
                     System.out.println("Invalid password. Try again.\n");
