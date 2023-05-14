@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package FinalProject;
 
 import java.io.*;
 import java.util.*;
 
-/**
- *
- * @author A
- */
 public class Admin {
 
     public Scanner input;
@@ -54,7 +46,7 @@ public class Admin {
         return choice;
     }
 
-    // to add an item
+    //to add an item
     public void addProduct() {
         System.out.println("Please choose a category:");
         System.out.println("p - phones");
@@ -93,15 +85,13 @@ public class Admin {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
-
         } else {
             System.out.println("Invalid category. Please choose a valid category.");
             addProduct();
         }
-
     }
 
-    // to remove a product 
+    //to remove a product 
     public void removeProduct() {
         System.out.print("Enter the ID of the item you want to remove: ");
         int id = input.nextInt();
@@ -121,7 +111,6 @@ public class Admin {
                     writer.write(line + "\n");
                 }
             }
-
             reader.close();
             writer.close();
 
@@ -137,12 +126,10 @@ public class Admin {
             System.out.println("Item removed successfully.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace();
         }
-
     }
 
-    // modify
+    //modify
     public void modifyProduct() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter the category to modify (p, h, t, or l):");
@@ -195,5 +182,4 @@ public class Admin {
             System.out.println("Error modifying item: " + e.getMessage());
         }
     }
-
 }
