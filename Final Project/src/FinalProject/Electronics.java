@@ -58,7 +58,6 @@ abstract public class Electronics {
     public void setYearOfRelease(int yearOfRelease) {
         this.yearOfRelease = yearOfRelease;
     }
-
 }
 
 class Phones extends Electronics {
