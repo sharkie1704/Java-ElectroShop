@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package FinalProject;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author 2279307
- */
 public class Customer {
 
     String name;
@@ -19,10 +11,7 @@ public class Customer {
     ArrayList<String> cart;
     double balance;
     double balanceWithTaxes;
-
-    /*
-    ** Constructor
-     */
+    
     public Customer(String name, String address) {
         this.name = name;
         this.address = address;
@@ -39,7 +28,6 @@ public class Customer {
         return orderId = (int) (Math.random() * 100000 + 2560);
     }
 
-    //what are we gonna use this for? 
     public Electronics addToCart(ArrayList<Electronics> item, int num) {
         for (int i = 0; i < item.size(); i++) {
             if (item.get(i).getId() == num) {
@@ -106,5 +94,4 @@ public class Customer {
     public double getBalanceWithTaxes() {
         return balanceWithTaxes = balance * 1.15;
     }
-
 }
