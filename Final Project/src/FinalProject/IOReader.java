@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package FinalProject;
 
 import java.io.*;
 import java.util.*;
 
-/**
- *
- * @author 2280592
- */
 public class IOReader {
 
     public static void readElectronicsFile(String fileName, ArrayList<Electronics> electronicsList) throws IOException {
@@ -24,18 +16,14 @@ public class IOReader {
                     String[] data = line.split(" ");
 
                     for (int i = 0; data.length > i; i++) {
-
                         for (int t = 0; t < data[i].length(); t++) {
-
                             if (data[i].charAt(t) != '|') {
                                 info = info + data[i].charAt(t) + "";
                             }
-
                             if (data[i].charAt(t) == '|') {
                                 object.add(info);
                                 info = "";
                             }
-
                             if (object.size() == 5) {
                                 switch (object.get(0)) {
                                     case "p":
@@ -71,7 +59,6 @@ public class IOReader {
                     }
                 }
             }
-
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + fileName + "'");
         } catch (IOException ex) {
@@ -94,7 +81,6 @@ public class IOReader {
         for (int i = 0; i < data.size(); i++) {
             dataArray[i] = data.get(i);
         }
-
         return dataArray;
     }
 
