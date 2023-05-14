@@ -12,6 +12,13 @@ import java.util.*;
  *
  * @author 2279307
  */
+
+/**
+ * for any code containing a txt file location
+ * do not forget to insert the location of the
+ * txt file containing the Products that can be
+ * downloaded via GitHub
+ */
 public class MainClass {
 
     public static void main(String[] args) throws IOException, EmptyCartException {
