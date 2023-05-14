@@ -17,38 +17,6 @@ abstract public class Electronics {
     int id;
     int yearOfRelease;
 
-    public ArrayList<Electronics> filtering(ArrayList data, String s) {
-        Electronics thing = null;
-        ArrayList<Electronics> arr = null;
-        String class_name;
-
-        for (int i = 0; i < data.size(); i++) {
-            switch (s) {
-                case "a" -> {
-                    if (data.get(i) instanceof Phones) {
-                        arr.add((Electronics) data.get(i));
-                    }
-                }
-                case "b" -> {
-                    if (data.get(i) instanceof Laptops) {
-                        arr.add((Electronics) data.get(i));
-                    }
-                }
-                case "c" -> {
-                    if (data.get(i) instanceof TV) {
-                        arr.add((Electronics) data.get(i));
-                    }
-                }
-                case "d" -> {
-                    if (data.get(i) instanceof Headphones) {
-                        arr.add((Electronics) data.get(i));
-                    }
-                }
-            }
-        }
-        return arr;
-    }
-
     public Electronics() {
     }
 
