@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package FinalProject;
 
 import java.util.Comparator;
 
-/**
- *
- * @author 2279307
- */
-//High to Low
+/*
+* Compare from highest to lowest
+*/
 class ElectronicsHtLComparator implements Comparator<Electronics> {
 
     @Override
@@ -25,7 +19,9 @@ class ElectronicsHtLComparator implements Comparator<Electronics> {
     }
 }
 
-//Low to High
+/*
+* Compare from lowest to highest
+*/
 class ElectronicsLtHComparator implements Comparator<Electronics> {
 
     @Override
@@ -39,4 +35,3 @@ class ElectronicsLtHComparator implements Comparator<Electronics> {
         }
     }
 }
-
