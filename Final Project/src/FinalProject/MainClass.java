@@ -418,7 +418,7 @@ public class MainClass {
             System.out.println();
             System.out.println("""
             1. Go back to main menu
-            2. Continue
+            2. Continue to checkout
             3. Log out""");
             System.out.print("\nWhat would you like to do? ");
             int checkout = myInput.nextInt();
@@ -472,7 +472,7 @@ public class MainClass {
     The log out menu
      */
     public static void logOut() {
-        System.out.printf("\n%20s %20s\n", "Successfully logged out.", "Thank you for shopping with the Java ElectroShop!");
+        System.out.printf("\n%20s %20s\n", "Successfully logged out.", "Thank you for shopping at the Java ElectroShop!");
     }
 
 }
