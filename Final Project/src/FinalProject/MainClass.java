@@ -120,7 +120,6 @@ public class MainClass {
                             modifyBudget(c, budget, optionBudget, myInput);
 
                             c.setBudget(budget);
-                            myInput.close();
                         }
                         case 3 -> {
                             removeFromCart(c, myInput);
