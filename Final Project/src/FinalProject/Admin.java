@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class Admin {
 
-    private Scanner input;
+    public Scanner input;
 
     public Admin() {
         input = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class Admin {
                 addProduct();
                 break;
             case 2:
-//                removeProduct();
+                removeProduct();
                 break;
             case 3:
                 modifyProduct();
@@ -47,7 +47,7 @@ public class Admin {
         }
     }
 
-    private int getChoice() {
+    public int getChoice() {
         System.out.print("Please enter a number corresponding to an option: ");
         int choice = input.nextInt();
         input.nextLine(); //consume the newline character
@@ -55,7 +55,7 @@ public class Admin {
     }
 
     // to add an item
-    private void addProduct() {
+    public void addProduct() {
         System.out.println("Please choose a category:");
         System.out.println("p - phones");
         System.out.println("h - headphones");
@@ -100,74 +100,100 @@ public class Admin {
         }
 
     }
-    
-    // to remove a product 
-    public void removeItem() {
-    Scanner input = new Scanner(System.in);
-    System.out.print("Enter the ID of the item you want to remove: ");
-    int id = input.nextInt();
-    input.nextLine(); 
 
-    // search for the item with the given ID
-    /*
-     *  write the rest of the code here
-     */
-    
-}
+    // to remove a product 
+    public void removeProduct() {
+        System.out.print("Enter the ID of the item you want to remove: ");
+        int id = input.nextInt();
+        input.nextLine(); //consume the newline character
+
+        try {
+            File inputFile = new File("C:\\Users\\2279307\\Desktop\\Note.txt");
+            File tempFile = new File("temp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] itemData = line.split("\\|");
+                int itemID = Integer.parseInt(itemData[3]);
+                if (itemID != id) {
+                    writer.write(line + "\n");
+                }
+            }
+
+            reader.close();
+            writer.close();
+
+            if (!inputFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            if (!tempFile.renameTo(inputFile)) {
+                System.out.println("Could not rename file");
+            }
+
+            System.out.println("Item removed successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+    }
 
     // modify
     public void modifyProduct() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Enter the category to modify (p, h, t, or l):");
-    String category = scanner.nextLine();
-    System.out.println("Enter the name of the item to modify:");
-    String name = scanner.nextLine();
-    System.out.println("Enter the field to modify (name, price, ID, or date):");
-    String field = scanner.nextLine();
-    System.out.println("Enter the new value:");
-    String newValue = scanner.nextLine();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the category to modify (p, h, t, or l):");
+        String category = scan.nextLine();
+        System.out.println("Enter the name of the item to modify:");
+        String name = scan.nextLine();
+        System.out.println("Enter the field to modify (name, price, ID, or date):");
+        String field = scan.nextLine();
+        System.out.println("Enter the new value:");
+        String newValue = scan.nextLine();
 
-    try {
-        File file = new File("C:\\Users\\2279307\\Desktop\\Note.txt");
-        File tempFile = new File("ModifiedProducts.txt");
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-        String currentLine;
-        while ((currentLine = reader.readLine()) != null) {
-            String[] itemData = currentLine.split("\\|");
-            if (itemData[0].equals(category) && itemData[2].equals(name)) {
-                switch (field) {
-                    case "name":
-                        itemData[2] = newValue;
-                        break;
-                    case "price":
-                        itemData[1] = newValue;
-                        break;
-                    case "ID":
-                        itemData[3] = newValue;
-                        break;
-                    case "date":
-                        itemData[4] = newValue;
-                        break;
-                    default:
-                        System.out.println("Invalid field entered");
-                        reader.close();
-                        writer.close();
-                        return;
+        try {
+            File file = new File("C:\\Users\\2279307\\Desktop\\Note.txt");
+            File tempFile = new File("ModifiedProducts.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                String[] itemData = currentLine.split("\\|");
+                if (itemData[0].equals(category) && itemData[2].equals(name)) {
+                    switch (field) {
+                        case "name":
+                            itemData[2] = newValue;
+                            break;
+                        case "price":
+                            itemData[1] = newValue;
+                            break;
+                        case "ID":
+                            itemData[3] = newValue;
+                            break;
+                        case "date":
+                            itemData[4] = newValue;
+                            break;
+                        default:
+                            System.out.println("Invalid field entered");
+                            reader.close();
+                            writer.close();
+                            return;
+                    }
+                    currentLine = String.join("|", itemData);
                 }
-                currentLine = String.join("|", itemData);
+                writer.write(currentLine + "\n");
             }
-            writer.write(currentLine + "\n");
+            reader.close();
+            writer.close();
+            file.delete();
+            tempFile.renameTo(file);
+            System.out.println("Item modified successfully");
+        } catch (IOException e) {
+            System.out.println("Error modifying item: " + e.getMessage());
         }
-        reader.close();
-        writer.close();
-        file.delete();
-        tempFile.renameTo(file);
-        System.out.println("Item modified successfully");
-    } catch (IOException e) {
-        System.out.println("Error modifying item: " + e.getMessage());
     }
-}
 
 }
-
