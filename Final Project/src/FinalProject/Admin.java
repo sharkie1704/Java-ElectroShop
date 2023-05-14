@@ -28,6 +28,7 @@ public class Admin {
             switch (choice) {
                 case 1 -> {
                     // code to add an item to the shop
+                    addProduct();
                     // chose a category + link with IO file
                 }
                 case 2 -> {
@@ -47,4 +48,58 @@ public class Admin {
             System.out.println("Invalid input. Please enter a number.");
         }
     }
+        private int getChoice() {
+        System.out.print("Please enter a number corresponding to an option: ");
+        int choice = input.nextInt();
+        input.nextLine(); //consume the newline character
+        return choice;
+    }
+
+    // to add an item
+    private void addProduct() {
+        System.out.println("Please choose a category:");
+        System.out.println("p - phones");
+        System.out.println("h - headphones");
+        System.out.println("t - tvs");
+        System.out.println("l - laptops");
+
+        String category = input.nextLine();
+
+        if (category.equalsIgnoreCase("p") || category.equalsIgnoreCase("h")
+                || category.equalsIgnoreCase("t") || category.equalsIgnoreCase("l")) {
+            System.out.print("Enter the price of the item: ");
+            double price = input.nextDouble();
+            input.nextLine(); //consume the newline character
+
+            System.out.print("Enter the name of the item: ");
+            String name = input.nextLine();
+
+            System.out.print("Enter the product ID of the item: ");
+            int id = input.nextInt();
+            input.nextLine(); //consume the newline character
+
+            System.out.print("Enter the year of release of the item: ");
+            int year = input.nextInt();
+            input.nextLine(); //consume the newline character
+
+            String item = category + "|" + price + "|" + name + "|" + id + "|" + year + "|";
+
+            try {
+                FileWriter writer = new FileWriter("C:\\Users\\2279307\\Desktop\\Note.txt", true);
+                PrintWriter printWriter = new PrintWriter(writer);
+                printWriter.println(item);
+                printWriter.close();
+                System.out.println("Item added successfully.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Invalid category. Please choose a valid category.");
+            addProduct();
+        }
+
+    }
+
 }
