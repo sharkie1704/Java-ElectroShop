@@ -11,7 +11,7 @@ public class Customer {
     ArrayList<String> cart;
     double balance;
     double balanceWithTaxes;
-    
+
     public Customer(String name, String address) {
         this.name = name;
         this.address = address;
@@ -90,7 +90,7 @@ public class Customer {
     public void setBalance(double balance) {
         this.balance = balance;
     }
-    
+
     public double getBalanceWithTaxes() {
         return balanceWithTaxes = balance * 1.15;
     }

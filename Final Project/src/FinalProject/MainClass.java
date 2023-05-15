@@ -5,12 +5,10 @@ import java.io.*;
 import java.util.*;
 
 /**
- * for any code containing a txt file location
- * do not forget to modify the location of the
- * txt file containing the list of electronics 
- * items that can be downloaded via GitHub
+ * for any code containing a txt file location do not forget to modify the
+ * location of the txt file containing the list of electronics items that can be
+ * downloaded via GitHub
  */
-
 public class MainClass {
 
     public static void main(String[] args) throws IOException, EmptyCartException {
@@ -32,14 +30,14 @@ public class MainClass {
                 input = myInput.nextLine().toCharArray();
 
                 if (p.isEqual(input)) {
-                    System.out.println("Success! You typed the right password 😊\n");
-                    myInput.close();
+                    System.out.println("Success! You typed the right password 😊");
                     passwordIsValid = true;
                     if (passwordIsValid == true) {
-                        System.out.println("Welcome, Admin. What would you like to do today?\n");
                         //call the Admin class--> add or remove items, edit attributes of items, or log out
                         Admin adminMenu = new Admin();
                         adminMenu.displayOptions();
+                        int adminChoice = myInput.nextInt();
+                        adminMenu.adminOptions(adminChoice, myInput);
                     }
                 } else {
                     System.out.println("Invalid password. Try again.\n");
@@ -77,10 +75,10 @@ public class MainClass {
                         case 1 -> {
                             //read IO file
                             ArrayList<Electronics> electronicsList = new ArrayList();
-                            String fileName = "C:\\Users\\2279307\\Desktop\\Note.txt";
+                            String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
                             IOReader.readElectronicsFile(fileName, electronicsList);
                             String[][] data;
-                            data = readDataFromFile("C:\\Users\\2279307\\Desktop\\Note.txt");
+                            data = readDataFromFile("C:\\Users\\2235663\\Desktop\\Note.txt");
                             System.out.print("\nDo you want to sort the items by price? (y/n): ");
                             String sort = myInput.next();
                             if ("y".equalsIgnoreCase(sort)) {
@@ -159,7 +157,7 @@ public class MainClass {
     The shopping menu; to add items to cart with a budget
      */
     public static void shopping(double budgetAmount, Customer c, Scanner myInput) throws IOException, EmptyCartException {
-        String fileName = "C:\\Users\\2279307\\Desktop\\Note.txt";
+        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
         ArrayList<Electronics> electronicsList = new ArrayList();
         IOReader.readElectronicsFile(fileName, electronicsList);
         ArrayList<String> cartItems = new ArrayList();
@@ -209,7 +207,7 @@ public class MainClass {
     The shopping menu but without a budget
      */
     public static void shopping(Customer c, Scanner myInput) throws IOException {
-        String fileName = "C:\\Users\\2279307\\Desktop\\Note.txt";
+        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
         ArrayList<Electronics> electronicsList = new ArrayList();
         IOReader.readElectronicsFile(fileName, electronicsList);
         ArrayList<String> cartItems = new ArrayList();
@@ -250,7 +248,7 @@ public class MainClass {
     The shopping menu if the user wants the items sorted by price
      */
     public static void sortedShopping(Customer c, Scanner myInput) throws IOException {
-        String fileName = "C:\\Users\\2279307\\Desktop\\Note.txt";
+        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
         ArrayList<Electronics> electronicsList = new ArrayList();
         IOReader.readElectronicsFile(fileName, electronicsList);
         ArrayList<String> cartItems = new ArrayList();
@@ -271,7 +269,7 @@ public class MainClass {
                 System.out.println("Invalid choice. Please try again.");
             }
         }
-        
+
         boolean keepShopping = true;
         while (keepShopping) {
             System.out.printf("\n%s\n", "************************************");

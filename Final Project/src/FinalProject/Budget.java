@@ -6,7 +6,7 @@ public class Budget {
 
     /*
     Constructor
-    */
+     */
     public Budget(double balance) {
         this.balance = balance;
     }

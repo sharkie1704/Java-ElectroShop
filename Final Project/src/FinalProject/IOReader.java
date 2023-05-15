@@ -11,7 +11,7 @@ public class IOReader {
         String info = "";
         try {
             FileReader fileReader = new FileReader(fileName);
-            try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            try ( BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 while (null != (line = bufferedReader.readLine())) {
                     String[] data = line.split(" ");
 
@@ -26,33 +26,32 @@ public class IOReader {
                             }
                             if (object.size() == 5) {
                                 switch (object.get(0)) {
-                                    case "p":
+                                    case "p" -> {
                                         electronicsList.add(new Phones(Double.parseDouble(object.get(1)), object.get(2),
                                                 Integer.parseInt(object.get(3)), Integer.parseInt(object.get(4))));
                                         object.clear();
-                                        break;
+                                    }
 
-                                    case "l":
+                                    case "l" -> {
                                         electronicsList.add(new Laptops(Double.parseDouble(object.get(1)), object.get(2),
                                                 Integer.parseInt(object.get(3)), Integer.parseInt(object.get(4))));
                                         object.clear();
-                                        break;
+                                    }
 
-                                    case "t":
+                                    case "t" -> {
                                         electronicsList.add(new TV(Double.parseDouble(object.get(1)), object.get(2),
                                                 Integer.parseInt(object.get(3)), Integer.parseInt(object.get(4))));
                                         object.clear();
-                                        break;
+                                    }
 
-                                    case "h":
+                                    case "h" -> {
                                         electronicsList.add(new Headphones(Double.parseDouble(object.get(1)), object.get(2),
                                                 Integer.parseInt(object.get(3)), Integer.parseInt(object.get(4))));
                                         object.clear();
-                                        break;
+                                    }
 
-                                    default:
+                                    default ->
                                         object.clear();
-                                        break;
                                 }
                             }
                         }
@@ -69,7 +68,7 @@ public class IOReader {
     public static String[][] readDataFromFile(String fileName) throws IOException {
         List<String[]> data = new ArrayList();
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+        try ( BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split("\\|");
