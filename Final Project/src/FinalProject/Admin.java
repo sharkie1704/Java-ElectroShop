@@ -1,13 +1,14 @@
 package FinalProject;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Admin {
-    
+
     /*
     ** The admin menu of options
-    */ 
+     */
     public void displayOptions() {
         System.out.printf("\n%s", "************************************************");
         System.out.println("\nWelcome, Admin. What would you like to do today?");
@@ -61,7 +62,11 @@ public class Admin {
             System.out.print("Enter the year of release of the item: ");
             int year = input.nextInt();
 
-            String item = category + "|" + price + "|" + name + "|" + id + "|" + year + "|";
+            // Format the price with two decimal places
+            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+            String formattedPrice = decimalFormat.format(price);
+
+            String item = category + "|" + formattedPrice + "|" + name + "|" + id + "|" + year + "|";
 
             try {
                 FileWriter writer = new FileWriter("C:\\Users\\2235663\\Desktop\\Note.txt", true);
@@ -79,7 +84,7 @@ public class Admin {
     ** To remove an item
      */
     public void removeProduct(Scanner input) throws IOException {
-        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
+        String fileName = "C:\\Users\\A\\Desktop\\Note.txt";
         ArrayList<Electronics> electronicsList = new ArrayList();
         IOReader.readElectronicsFile(fileName, electronicsList);
 
