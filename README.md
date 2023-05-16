@@ -14,3 +14,5 @@ As for the choices presented to the admin, we have:
 - Log out
 
 Quick link to the docs: https://docs.google.com/document/d/1yhuZmWDPqpAYp1NeChS5yJESlubqh2qEnEJOlkxB_6E/edit?usp=sharing
+
+***Note that the products of the shop are located inside a txt file that needs to be downloaded in order to be accessed. Don't forget to change the location of the txt file to your own computer!!!***
