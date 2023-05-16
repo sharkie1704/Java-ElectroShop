@@ -77,10 +77,10 @@ public class MainClass {
                         case 1 -> {
                             //read IO file
                             ArrayList<Electronics> electronicsList = new ArrayList();
-                            String fileName = "C:\\Users\\A\\Desktop\\Note.txt";
+                            String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
                             IOReader.readElectronicsFile(fileName, electronicsList);
                             String[][] data;
-                            data = readDataFromFile("C:\\Users\\A\\Desktop\\Note.txt");
+                            data = readDataFromFile("C:\\Users\\2235663\\Desktop\\Note.txt");
                             System.out.println(
                                     """
                     
@@ -131,21 +131,18 @@ public class MainClass {
                             break;
                         }
                         default -> {
-                            if (option < 1 || option > 4) {
-                                System.out.println("Invalid option. Please try again.");
-                            } else {
-                                System.out.print("Do you want to continue? Enter y for yes and any other character for no: ");
-                                answer = myInput.next().charAt(0);
-                                answer = Character.toLowerCase(answer);
-                                if (answer != 'y') {
-                                    shouldContinue = false;
-                                }
+                            System.out.println("Invalid option. Please try again.");
+                            System.out.print("Do you want to continue? Enter y for yes and any other character for no: ");
+                            answer = myInput.next().charAt(0);
+                            answer = Character.toLowerCase(answer);
+                            if (answer != 'y') {
+                                shouldContinue = false;
                             }
                         }
                     }
                 } while (shouldContinue);
-            } catch (IllegalArgumentException ex) {
-                System.out.println(ex);
+            } catch (InputMismatchException ex) {
+                System.out.println("Invalid option. Please try again.");
             } catch (IOException e) {
                 System.out.println("An error occurred. Please try again.");
             }
@@ -170,7 +167,7 @@ public class MainClass {
     The shopping menu; to add items to cart with a budget
      */
     public static void shopping(double budgetAmount, Customer c, Scanner myInput) throws IOException, EmptyCartException {
-        String fileName = "C:\\Users\\A\\Desktop\\Note.txt";
+        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
         ArrayList<Electronics> electronicsList = new ArrayList();
         IOReader.readElectronicsFile(fileName, electronicsList);
         ArrayList<String> cartItems = new ArrayList();
@@ -212,7 +209,7 @@ public class MainClass {
             System.out.println("- " + item);
         }
         System.out.printf("%s: $%.2f\n", "Total balance", balance);
-        if (budgetAmount <= balance) {
+        if (budgetAmount >= balance) {
             System.out.println("\nYou have respected your budget. Congratulations!");
         } else {
             System.out.println("\nYou have exceeded your budget. Do you wish to proceed? (y/n)");
@@ -233,7 +230,7 @@ public class MainClass {
     The shopping menu but without a budget
      */
     public static void shopping(Customer c, Scanner myInput) throws IOException {
-        String fileName = "C:\\Users\\A\\Desktop\\Note.txt";
+        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
         ArrayList<Electronics> electronicsList = new ArrayList();
         IOReader.readElectronicsFile(fileName, electronicsList);
         ArrayList<String> cartItems = new ArrayList();
@@ -284,7 +281,7 @@ public class MainClass {
     The shopping menu if the user wants the items sorted by price
      */
     public static void sortedShopping(Customer c, Scanner myInput) throws IOException {
-        String fileName = "C:\\Users\\A\\Desktop\\Note.txt";
+        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
         ArrayList<Electronics> electronicsList = new ArrayList();
         IOReader.readElectronicsFile(fileName, electronicsList);
         ArrayList<String> cartItems = new ArrayList();
@@ -375,8 +372,6 @@ public class MainClass {
         4. Shop according to budget
                          
         What would you like to do?""" + " ");
-//        int option = myInput.nextInt();
-//        return option != 5; // If the user chooses to quit, return false
     }
 
     /*
@@ -472,7 +467,7 @@ public class MainClass {
             case "p" -> {
                 System.out.printf("%s\n", "******************************************");
                 System.out.println("\nYou can come pick up your item(s) at 4567 Hamel Street, H6R 3L2, Montreal, QC");
-                System.out.println("Name and adress of client: " + c.getName() + "," + c.getAddress());
+                System.out.println("Name and adress of client: " + c.getName() + ", " + c.getAddress());
                 System.out.println("Order ID: " + c.getOrderId());
                 System.out.printf("%s\n", "******************************************");
             }

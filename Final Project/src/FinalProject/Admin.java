@@ -23,50 +23,50 @@ public class Admin {
                         """);
     }
 
-/*
+    /*
 ** List of options that the admin can do
-*/
-public void adminOptions(int adminChoice, Scanner input) throws IOException {
-    boolean validChoice = false;
+     */
+    public void adminOptions(int adminChoice, Scanner input) throws IOException {
+        boolean validChoice = false;
 
-    while (!validChoice) {
-        try {
-            switch (adminChoice) {
-                case 1 -> {
-                    addProduct(input);
-                    validChoice = true;
-                }
-                case 2 -> {
-                    removeProduct(input);
-                    validChoice = true;
-                }
-                case 3 -> {
-                System.out.println(
-                    """
+        while (!validChoice) {
+            try {
+                switch (adminChoice) {
+                    case 1 -> {
+                        addProduct(input);
+                        validChoice = true;
+                    }
+                    case 2 -> {
+                        removeProduct(input);
+                        validChoice = true;
+                    }
+                    case 3 -> {
+                        System.out.println(
+                                """
               ~~**********************************~~          
                     Successfully logged out.
               ~~**********************************~~ 
                     """);
-                    validChoice = true;
-                }
-                default -> {
-                    System.out.println("Invalid choice. Please choose a valid option.");
-                    input.nextLine(); // Consume the invalid input
-                    System.out.print("Enter your choice: ");
-                    if (input.hasNextInt()) {
-                        adminChoice = input.nextInt();
-                    } else {
-                        throw new InputMismatchException();
+                        validChoice = true;
+                    }
+                    default -> {
+                        System.out.println("Invalid choice. Please choose a valid option.");
+                        input.nextLine(); // Consume the invalid input
+                        System.out.print("Enter your choice: ");
+                        if (input.hasNextInt()) {
+                            adminChoice = input.nextInt();
+                        } else {
+                            throw new InputMismatchException();
+                        }
                     }
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid option.");
+                input.nextLine(); // Consume the invalid input
+                System.out.print("Enter your choice: ");
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a valid option.");
-            input.nextLine(); // Consume the invalid input
-            System.out.print("Enter your choice: ");
         }
     }
-}
 
 
     /*
@@ -103,7 +103,7 @@ public void adminOptions(int adminChoice, Scanner input) throws IOException {
             String item = category + "|" + formattedPrice + "|" + name + "|" + id + "|" + year + "|";
 
             try {
-                FileWriter writer = new FileWriter("C:\\Users\\A\\Desktop\\Note.txt", true);
+                FileWriter writer = new FileWriter("C:\\Users\\2235663\\Desktop\\Note.txt", true);
                 try ( PrintWriter printWriter = new PrintWriter(writer)) {
                     printWriter.println(item);
                 }
@@ -122,66 +122,63 @@ public void adminOptions(int adminChoice, Scanner input) throws IOException {
     /*
     ** To remove an item
      */
+    public void removeProduct(Scanner input) throws IOException {
+        String fileName = "C:\\Users\\2235663\\Desktop\\Note.txt";
+        ArrayList<Electronics> electronicsList = new ArrayList();
+        IOReader.readElectronicsFile(fileName, electronicsList);
+        System.out.printf("\n%s\n", "---------------------------------------");
+        System.out.println("Here's the current inventory of items:");
 
-
-public void removeProduct(Scanner input) throws IOException {
-    String fileName = "C:\\Users\\A\\Desktop\\Note.txt";
-    ArrayList<Electronics> electronicsList = new ArrayList();
-    IOReader.readElectronicsFile(fileName, electronicsList);
-    System.out.printf("\n%s\n", "---------------------------------------");
-    System.out.println("Here's the current inventory of items:");
-
-    for (int i = 0; i < electronicsList.size(); i++) {
-        System.out.println("\n" + (i + 1) + ". " + electronicsList.get(i) + " ");
-    }
-
-    boolean removed = false; // Flag indicating if the item was successfully removed
-
-    while (!removed) {
-        System.out.print("\nEnter the ID of the item you want to remove: ");
-        int id = input.nextInt();
-        input.nextLine(); //consume the newline character
-
-        try {
-            File inputFile = new File("C:\\Users\\A\\Desktop\\Note.txt");
-            File tempFile = new File("temp.txt");
-            BufferedWriter writer;
-            try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
-                writer = new BufferedWriter(new FileWriter(tempFile));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] itemData = line.split("\\|");
-                    int itemID = Integer.parseInt(itemData[3]);
-                    if (itemID != id) {
-                        writer.write(line + "\n");
-                    } else {
-                        removed = true; // Item is found and removed
-                    }
-                }
-            }
-            writer.close();
-            if (!inputFile.delete()) {
-                System.out.println("Could not delete file.");
-                return;
-            }
-            if (!tempFile.renameTo(inputFile)) {
-                System.out.println("Could not rename file.");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
+        for (int i = 0; i < electronicsList.size(); i++) {
+            System.out.println("\n" + (i + 1) + ". " + electronicsList.get(i) + " ");
         }
 
-        if (removed) {
-            System.out.println(
-                    """
+        boolean removed = false; // Flag indicating if the item was successfully removed
+
+        while (!removed) {
+            System.out.print("\nEnter the ID of the item you want to remove: ");
+            int id = input.nextInt();
+            input.nextLine(); //consume the newline character
+
+            try {
+                File inputFile = new File("C:\\Users\\2235663\\Desktop\\Note.txt");
+                File tempFile = new File("temp.txt");
+                BufferedWriter writer;
+                try ( BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+                    writer = new BufferedWriter(new FileWriter(tempFile));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String[] itemData = line.split("\\|");
+                        int itemID = Integer.parseInt(itemData[3]);
+                        if (itemID != id) {
+                            writer.write(line + "\n");
+                        } else {
+                            removed = true; // Item is found and removed
+                        }
+                    }
+                }
+                writer.close();
+                if (!inputFile.delete()) {
+                    System.out.println("Could not delete file.");
+                    return;
+                }
+                if (!tempFile.renameTo(inputFile)) {
+                    System.out.println("Could not rename file.");
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+            }
+
+            if (removed) {
+                System.out.println(
+                        """
               \n~~************************************************~~          
                            Item successfully removed.
               ~~************************************************~~
                     """);
-        } else {
-            System.out.println("Item with ID " + id + " was not found. Please try again.");
+            } else {
+                System.out.println("Item with ID " + id + " was not found. Please try again.");
+            }
         }
     }
-}
-
 }
