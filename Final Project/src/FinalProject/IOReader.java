@@ -11,7 +11,7 @@ public class IOReader {
         String info = "";
         try {
             FileReader fileReader = new FileReader(fileName);
-            try ( BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            try (BufferedReader bufferedReader = new BufferedReader(fileReader)) {
                 while (null != (line = bufferedReader.readLine())) {
                     String[] data = line.split(" ");
 
@@ -50,8 +50,7 @@ public class IOReader {
                                         object.clear();
                                     }
 
-                                    default ->
-                                        object.clear();
+                                    default -> object.clear();
                                 }
                             }
                         }
@@ -68,7 +67,7 @@ public class IOReader {
     public static String[][] readDataFromFile(String fileName) throws IOException {
         List<String[]> data = new ArrayList();
 
-        try ( BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split("\\|");
