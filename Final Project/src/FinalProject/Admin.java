@@ -24,12 +24,12 @@ public class Admin {
     }
 
     /*
-** List of options that the admin can do
+    ** List of options that the admin can do
      */
     public void adminOptions(int adminChoice, Scanner input) throws IOException {
         boolean validChoice = false;
-
-        while (!validChoice) {
+        boolean shouldContinue = true;
+        while (!validChoice && shouldContinue) {
             try {
                 switch (adminChoice) {
                     case 1 -> {
@@ -41,13 +41,9 @@ public class Admin {
                         validChoice = true;
                     }
                     case 3 -> {
-                        System.out.println(
-                                """
-              ~~**********************************~~          
-                    Successfully logged out.
-              ~~**********************************~~ 
-                    """);
+                        logOut();
                         validChoice = true;
+                        shouldContinue = false;
                     }
                     default -> {
                         System.out.println("Invalid choice. Please choose a valid option.");
@@ -68,53 +64,60 @@ public class Admin {
         }
     }
 
-
     /*
     ** To add an item
      */
     public void addProduct(Scanner input) {
-        System.out.println("--------------------------------");
-        System.out.println("Please choose a category:");
-        System.out.println("p - phones");
-        System.out.println("h - headphones");
-        System.out.println("t - tvs");
-        System.out.println("l - laptops");
+        boolean c = true;
+        while (c) {
+            System.out.println("--------------------------------");
+            System.out.println("Please choose a category:");
+            System.out.println("p - phones");
+            System.out.println("h - headphones");
+            System.out.println("t - tvs");
+            System.out.println("l - laptops");
+            
+            String category = input.next();
+            
+            if (category.equalsIgnoreCase("p") || category.equalsIgnoreCase("h")
+                    || category.equalsIgnoreCase("t") || category.equalsIgnoreCase("l")) {
+                System.out.print("\nEnter the price of the item: ");
+                double price = input.nextDouble();
+                
+                System.out.print("Enter the name of the item: ");
+                String name = input.next();
+                
+                System.out.print("Enter the product ID of the item: ");
+                int id = input.nextInt();
+                
+                System.out.print("Enter the year of release of the item: ");
+                int year = input.nextInt();
 
-        String category = input.next();
-
-        if (category.equalsIgnoreCase("p") || category.equalsIgnoreCase("h")
-                || category.equalsIgnoreCase("t") || category.equalsIgnoreCase("l")) {
-            System.out.print("\nEnter the price of the item: ");
-            double price = input.nextDouble();
-
-            System.out.print("Enter the name of the item: ");
-            String name = input.next();
-
-            System.out.print("Enter the product ID of the item: ");
-            int id = input.nextInt();
-
-            System.out.print("Enter the year of release of the item: ");
-            int year = input.nextInt();
-
-            // Format the price with two decimal places
-            DecimalFormat decimalFormat = new DecimalFormat("0.00");
-            String formattedPrice = decimalFormat.format(price);
-
-            String item = category + "|" + formattedPrice + "|" + name + "|" + id + "|" + year + "|";
-
-            try {
-                FileWriter writer = new FileWriter("C:\\Users\\2235663\\Desktop\\Note.txt", true);
-                try ( PrintWriter printWriter = new PrintWriter(writer)) {
-                    printWriter.println(item);
-                }
-                System.out.println(
-                        """
+                // Format the price with two decimal places
+                DecimalFormat decimalFormat = new DecimalFormat("0.00");
+                String formattedPrice = decimalFormat.format(price);
+                
+                String item = category + "|" + formattedPrice + "|" + name + "|" + id + "|" + year + "|";
+                
+                try {
+                    FileWriter writer = new FileWriter("C:\\Users\\2235663\\Desktop\\Note.txt", true);
+                    try (PrintWriter printWriter = new PrintWriter(writer)) {
+                        printWriter.println(item);
+                    }
+                    System.out.println(
+                            """
               \n~~************************************************~~          
                            Item successfully added.
               ~~************************************************~~
                     """);
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
+                    c = false;
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                }
+            } else if (category.equals("0")) {
+                logOut();
+            } else {
+                System.out.println("Invalid option. Please try again.");
             }
         }
     }
@@ -128,23 +131,21 @@ public class Admin {
         IOReader.readElectronicsFile(fileName, electronicsList);
         System.out.printf("\n%s\n", "---------------------------------------");
         System.out.println("Here's the current inventory of items:");
-
+        
         for (int i = 0; i < electronicsList.size(); i++) {
             System.out.println("\n" + (i + 1) + ". " + electronicsList.get(i) + " ");
         }
-
         boolean removed = false; // Flag indicating if the item was successfully removed
 
         while (!removed) {
             System.out.print("\nEnter the ID of the item you want to remove: ");
             int id = input.nextInt();
             input.nextLine(); //consume the newline character
-
             try {
                 File inputFile = new File("C:\\Users\\2235663\\Desktop\\Note.txt");
                 File tempFile = new File("temp.txt");
                 BufferedWriter writer;
-                try ( BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
                     writer = new BufferedWriter(new FileWriter(tempFile));
                     String line;
                     while ((line = reader.readLine()) != null) {
@@ -168,7 +169,7 @@ public class Admin {
             } catch (IOException e) {
                 System.out.println("An error occurred.");
             }
-
+            
             if (removed) {
                 System.out.println(
                         """
@@ -176,9 +177,19 @@ public class Admin {
                            Item successfully removed.
               ~~************************************************~~
                     """);
+                break;
             } else {
                 System.out.println("Item with ID " + id + " was not found. Please try again.");
             }
         }
+    }
+    
+    public void logOut() {
+        System.out.println(
+                """
+              ~~**********************************~~          
+                    Successfully logged out.
+              ~~**********************************~~ 
+                    """);
     }
 }

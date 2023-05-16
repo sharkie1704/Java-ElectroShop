@@ -45,6 +45,7 @@ public class MainClass {
                 }
             } while (!passwordIsValid);
         } else {
+            
             /*
             Client menu
              */
